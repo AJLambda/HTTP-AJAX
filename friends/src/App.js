@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import axios from "axios";
 import {
   BrowserRouter as Router,
@@ -30,6 +29,7 @@ class App extends Component {
       .then(res => {
         this.setState({ friends: res.data });
         console.log(res);
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);

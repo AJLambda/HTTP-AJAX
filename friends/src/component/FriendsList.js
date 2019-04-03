@@ -1,13 +1,22 @@
 import React from "react";
 import "../App.css";
+import Card from "react-bootstrap/Card";
 
 const FriendsList = props => {
   console.log(props.friends);
-  console.log(props.friends.name);
+
+  const friends = props.friends;
+
   return (
     <div className="friends-wrapper">
-      {props.friends.map(friend => (
-        <div className="friend-card" key={friend.id}>
+      {friends.map(friend => (
+        <Card
+          className="m-5 mx-auto"
+          bg="dark"
+          text="white"
+          style={{ width: 600 }}
+          key={friend.id}
+        >
           <div>
             <p>{friend.name}</p>
           </div>
@@ -17,7 +26,7 @@ const FriendsList = props => {
           <div>
             <p>{friend.email}</p>
           </div>
-        </div>
+        </Card>
       ))}
     </div>
   );
