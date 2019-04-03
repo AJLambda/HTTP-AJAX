@@ -1,25 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import axios from "axios";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
+
+import FriendsList from "./component/FriendsList";
+
+import "./App.css";
 
 class App extends Component {
+  // add constructor and CDM
+  constructor(props) {
+    super(props);
+    this.state = {
+      friends: []
+    };
+  }
+
+  componentDidMount() {
+    // ajax request to get the items from a server on mount
+    // 1. invoke .get()
+    // 2. pass in the server url - base url + endpoint
+    axios
+      .get("http://localhost:5000/friends")
+      .then(res => {
+        this.setState({ items: res.data });
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <FriendsList friends={this.state.friends} />
       </div>
     );
   }
