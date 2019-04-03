@@ -14,18 +14,14 @@ const FriendsList = props => {
           className="m-5 mx-auto"
           bg="dark"
           text="white"
-          style={{ width: 600 }}
+          style={{ width: 400 }}
           key={friend.id}
         >
-          <div>
-            <p>{friend.name}</p>
-          </div>
-          <div>
-            <p>{friend.age}</p>
-          </div>
-          <div>
-            <p>{friend.email}</p>
-          </div>
+          <Card.Body>
+            <Card.Title>{friend.name}</Card.Title>
+            <Card.Text>{friend.age}</Card.Text>
+            <Card.Text>{friend.email}</Card.Text>
+          </Card.Body>
         </Card>
       ))}
     </div>
