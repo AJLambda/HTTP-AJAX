@@ -17,6 +17,9 @@ const Friend = props => {
           <Card.Title>{name}</Card.Title>
           <Card.Text>{age}</Card.Text>
           <Card.Text>{email}</Card.Text>
+          <button className="btn-delete" onClick={props.friend.deleteFriend}>
+            Delete
+          </button>
         </Card.Body>
       </Card>
     </div>

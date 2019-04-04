@@ -1,7 +1,5 @@
 import React from "react";
 import "../App.css";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
 class FriendForm extends React.Component {
   state = {
