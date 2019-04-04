@@ -9,15 +9,24 @@ import {
 
 import FriendsList from "./component/FriendsList";
 import FriendForm from "./component/FriendForm";
+import Friend from "./component/Friend";
 
 import "./App.css";
+
+const blankFriend = {
+  name: "",
+  age: "",
+  email: ""
+};
 
 class App extends Component {
   // add constructor and CDM
   constructor(props) {
     super(props);
     this.state = {
-      friends: []
+      activeFriend: null,
+      friends: [],
+      error: ""
     };
   }
 
@@ -37,11 +46,67 @@ class App extends Component {
       });
   }
 
+  addFriend = (e, friend) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/friends", friend)
+      .then(res => {
+        this.setState({
+          friends: res.data
+        });
+        // // HTTP STEP V - Clear data form in ItemForm and route to /item-list
+        // this.props.history.push('/FriendsList');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  getFriendById = id => {
+    axios
+      .get(`http://localhost:5000/friendById/${id}`)
+      .then(res => this.setState({ activeFriend: res.data }))
+      .catch(err => console.log(err));
+  };
+
+  changeHandler = ev => {
+    this.setState({
+      friend: {
+        ...this.state.friend,
+        [ev.target.name]: ev.target.value
+      }
+    });
+  };
+
+  updateFriend = () => {
+    axios
+      .put(
+        `http://localhost:5000/friends/${this.state.editingId}`,
+        this.state.friend
+      )
+      .then(response => {
+        this.setState({
+          friends: response.data,
+          editingId: null,
+          isEditing: false,
+          friend: blankFriend
+        });
+      })
+      .catch(error => console.log(error));
+  };
+
   render() {
     return (
       <div className="App">
-        <FriendForm />
-        <FriendsList friends={this.state.friends} />
+        <FriendForm
+          activeFriend={this.state.activeFriend}
+          addFriend={this.addFriend}
+          updateFriend={this.updateFriend}
+        />
+        <FriendsList
+          friends={this.state.friends}
+          getFriendById={this.getFriendById}
+        />
       </div>
     );
   }
