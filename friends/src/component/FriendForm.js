@@ -24,12 +24,12 @@ class FriendForm extends React.Component {
   }
 
   changeHandler = ev => {
-    this.setState(prevState => ({
+    this.setState({
       friend: {
-        ...prevState.friend,
+        ...this.state.friend,
         [ev.target.name]: ev.target.value
       }
-    }));
+    });
   };
 
   handleSubmit = e => {
@@ -61,7 +61,7 @@ class FriendForm extends React.Component {
           <div className="baseline" />
 
           <input
-            type="text"
+            type="number"
             placeholder="Enter age"
             name="age"
             value={this.state.friend.age}
@@ -79,7 +79,7 @@ class FriendForm extends React.Component {
           <div className="baseline" />
 
           <button className="md-button form-button">{`${
-            this.props.activeItem ? "Update" : "Add New"
+            this.props.activeFriend ? "Update" : "Add New"
           } Friend`}</button>
         </form>
       </div>
