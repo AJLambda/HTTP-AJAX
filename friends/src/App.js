@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import FriendsList from "./component/FriendsList";
+import FriendForm from "./component/FriendForm";
 
 import "./App.css";
 
@@ -39,6 +40,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <FriendForm />
         <FriendsList friends={this.state.friends} />
       </div>
     );

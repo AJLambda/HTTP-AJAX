@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 
 const Friend = props => {
   return (
-    <div className="friends-wrapper">
+    <div className="friend-wrapper">
       <Card
         className="m-5 mx-auto"
         bg="dark"
