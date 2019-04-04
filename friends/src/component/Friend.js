@@ -3,6 +3,7 @@ import "../App.css";
 import Card from "react-bootstrap/Card";
 
 const Friend = props => {
+  const { name, age, email, id } = props.friend;
   return (
     <div className="friend-wrapper">
       <Card
@@ -10,12 +11,12 @@ const Friend = props => {
         bg="dark"
         text="white"
         style={{ width: 400, opacity: 0.9 }}
-        key={props.friend.id}
+        key={id}
       >
         <Card.Body>
-          <Card.Title>{props.friend.name}</Card.Title>
-          <Card.Text>{props.friend.age}</Card.Text>
-          <Card.Text>{props.friend.email}</Card.Text>
+          <Card.Title>{name}</Card.Title>
+          <Card.Text>{age}</Card.Text>
+          <Card.Text>{email}</Card.Text>
         </Card.Body>
       </Card>
     </div>
