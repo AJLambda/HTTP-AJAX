@@ -95,6 +95,16 @@ class App extends Component {
       .catch(error => console.log(error));
   };
 
+  deleteFriend = id => {
+    let url = "http://localhost:5000/friends/" + id;
+    axios
+      .delete(url)
+      .then(response => {
+        this.setState({ friends: response.data });
+      })
+      .catch(error => console.log(error));
+  };
+
   render() {
     return (
       <div className="App">
@@ -106,6 +116,7 @@ class App extends Component {
         <FriendsList
           friends={this.state.friends}
           getFriendById={this.getFriendById}
+          deleteFriend={this.deleteFriend}
         />
       </div>
     );
