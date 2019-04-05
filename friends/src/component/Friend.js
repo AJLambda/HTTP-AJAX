@@ -2,9 +2,14 @@ import React from "react";
 import "../App.css";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-function Friend(props) {
-  const { name, age, email, id } = props.friend;
+const Friend = props => {
+  // const friend = props.friends.find(friend => {
+  //   return `${friend.id}` === props.match.params.friendId;
+  // });
+  // if (!friend) return <h3>Loading data...</h3>;
+  console.log(props.friends);
 
   return (
     <div className="friend-wrapper">
@@ -13,21 +18,16 @@ function Friend(props) {
         bg="dark"
         text="white"
         style={{ width: 400, opacity: 0.9 }}
-        key={props.friend.id}
       >
-        <Link to={`/friends/${id}`}>
-          <Card.Body>
-            <Card.Title>{name}</Card.Title>
-            <Card.Text>{age}</Card.Text>
-            <Card.Text>{email}</Card.Text>
-            <button className="btn-delete" onClick={props.deleteFriend}>
-              Delete
-            </button>
-          </Card.Body>
-        </Link>
+        <Card.Body>
+          <Card.Title>{props.friend.name}</Card.Title>
+          <Card.Text>{props.friend.age}</Card.Text>
+          <Card.Text>{props.friend.email}</Card.Text>
+          <button className="btn-delete">Delete</button>
+        </Card.Body>
       </Card>
     </div>
   );
-}
+};
 
 export default Friend;

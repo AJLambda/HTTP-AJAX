@@ -8,11 +8,13 @@ function FriendsList(props) {
     <div className="friends-list-wrapper">
       {props.friends.map(friend => (
         <div className="friend-card" key={friend.id}>
-          <Friend
-            friend={friend}
-            key={friend.id}
-            deleteFriend={props.deleteFriend}
-          />
+          <Link to={`/friends-list/${friend.id}`}>
+            <Friend
+              friend={friend}
+              key={friend.id}
+              deleteFriend={props.deleteFriend}
+            />
+          </Link>
         </div>
       ))}
     </div>

@@ -55,7 +55,7 @@ class App extends Component {
           friends: res.data
         });
         // // HTTP STEP V - Clear data form in ItemForm and route to /item-list
-        this.props.history.push("/friends-List");
+        // this.props.history.push("/friends-List");
       })
       .catch(err => {
         console.log(err);
@@ -95,17 +95,14 @@ class App extends Component {
       .catch(error => console.log(error));
   };
 
-  deleteFriend = (e, id) => {
-    e.preventDefault();
-    console.log("now in deleteItem in App");
+  deleteFriend = friend => {
     axios
-      .delete(`http://localhost:5000/friends/${id}`)
+      .delete(`http://localhost:5000/friends/${friend.id}`)
       .then(res => {
-        console.log("Data is back, now set state and reroute", res.data);
+        console.log(res.data);
         this.setState({
           friends: res.data
         });
-        // this.props.history.push("/item-list");
       })
       .catch(err => {
         console.log(err);
@@ -148,13 +145,13 @@ class App extends Component {
         />
 
         <Route
-          path="/friends-list/:id"
+          path="/friends-list/:friendId"
           render={props => (
             <Friend
+              {...props}
               deleteFriend={this.deleteFriend}
               friends={this.state.friends}
               setActiveFriend={this.setActiveFriend}
-              {...props}
             />
           )}
         />
