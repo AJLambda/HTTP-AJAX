@@ -14,11 +14,11 @@ import Friend from "./component/Friend";
 
 import "./App.css";
 
-const blankFriend = {
-  name: "",
-  age: "",
-  email: ""
-};
+// const blankFriend = {
+//   name: "",
+//   age: "",
+//   email: ""
+// };
 
 class App extends Component {
   // add constructor and CDM
@@ -62,12 +62,12 @@ class App extends Component {
       });
   };
 
-  getFriendById = id => {
-    axios
-      .get(`http://localhost:5000/friends/${id}`)
-      .then(res => this.setState({ activeFriend: res.data }))
-      .catch(err => console.log(err));
-  };
+  // getFriendById = id => {
+  //   axios
+  //     .get(`http://localhost:5000/friends/${id}`)
+  //     .then(res => this.setState({ activeFriend: res.data }))
+  //     .catch(err => console.log(err));
+  // };
 
   changeHandler = ev => {
     this.setState({
@@ -78,22 +78,22 @@ class App extends Component {
     });
   };
 
-  updateFriend = () => {
-    axios
-      .put(
-        `http://localhost:5000/friends/${this.state.editingId}`,
-        this.state.friend
-      )
-      .then(response => {
-        this.setState({
-          friends: response.data,
-          editingId: null,
-          isEditing: false,
-          friend: blankFriend
-        });
-      })
-      .catch(error => console.log(error));
-  };
+  // updateFriend = () => {
+  //   axios
+  //     .put(
+  //       `http://localhost:5000/friends/${this.state.editingId}`,
+  //       this.state.friend
+  //     )
+  //     .then(response => {
+  //       this.setState({
+  //         friends: response.data,
+  //         editingId: null,
+  //         isEditing: false,
+  //         friend: blankFriend
+  //       });
+  //     })
+  //     .catch(error => console.log(error));
+  // };
 
   deleteFriend = friend => {
     axios
@@ -145,12 +145,13 @@ class App extends Component {
         />
 
         <Route
+          exact
           path="/friends-list/:friendId"
           render={props => (
             <Friend
               {...props}
               deleteFriend={this.deleteFriend}
-              friends={this.state.friends}
+              friend={this.state.friend}
               setActiveFriend={this.setActiveFriend}
             />
           )}

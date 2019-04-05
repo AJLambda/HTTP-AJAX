@@ -10,6 +10,7 @@ const Friend = props => {
   // });
   // if (!friend) return <h3>Loading data...</h3>;
   console.log(props.friends);
+  console.log(props.match);
 
   return (
     <div className="friend-wrapper">

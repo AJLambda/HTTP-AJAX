@@ -10,16 +10,16 @@ class FriendForm extends React.Component {
     }
   };
 
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.activeFriend &&
-      prevProps.activeFriend !== this.props.activeFriend
-    ) {
-      this.setState({
-        friend: this.props.activeFriend
-      });
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (
+  //     this.props.activeFriend &&
+  //     prevProps.activeFriend !== this.props.activeFriend
+  //   ) {
+  //     this.setState({
+  //       friend: this.props.activeFriend
+  //     });
+  //   }
+  // }
 
   changeHandler = ev => {
     this.setState({
