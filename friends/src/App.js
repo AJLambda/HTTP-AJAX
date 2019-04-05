@@ -7,6 +7,7 @@ import {
   NavLink
 } from "react-router-dom";
 
+import Home from "./component/Home";
 import FriendsList from "./component/FriendsList";
 import FriendForm from "./component/FriendForm";
 import Friend from "./component/Friend";
@@ -24,8 +25,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeFriend: null,
       friends: [],
+      activeFriend: null,
       error: ""
     };
   }
@@ -46,16 +47,15 @@ class App extends Component {
       });
   }
 
-  addFriend = (e, friend) => {
-    e.preventDefault();
+  addFriend = newFriend => {
     axios
-      .post("http://localhost:5000/friends", friend)
+      .post("http://localhost:5000/friends", newFriend)
       .then(res => {
         this.setState({
           friends: res.data
         });
         // // HTTP STEP V - Clear data form in ItemForm and route to /item-list
-        // this.props.history.push('/FriendsList');
+        this.props.history.push("/friends-List");
       })
       .catch(err => {
         console.log(err);
@@ -64,7 +64,7 @@ class App extends Component {
 
   getFriendById = id => {
     axios
-      .get(`http://localhost:5000/friendById/${id}`)
+      .get(`http://localhost:5000/friends/${id}`)
       .then(res => this.setState({ activeFriend: res.data }))
       .catch(err => console.log(err));
   };
@@ -95,28 +95,83 @@ class App extends Component {
       .catch(error => console.log(error));
   };
 
-  deleteFriend = id => {
-    let url = "http://localhost:5000/friends/" + id;
+  deleteFriend = (e, id) => {
+    e.preventDefault();
+    console.log("now in deleteItem in App");
     axios
-      .delete(url)
-      .then(response => {
-        this.setState({ friends: response.data });
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        console.log("Data is back, now set state and reroute", res.data);
+        this.setState({
+          friends: res.data
+        });
+        // this.props.history.push("/item-list");
       })
-      .catch(error => console.log(error));
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
     return (
       <div className="App">
-        <FriendForm
-          activeFriend={this.state.activeFriend}
-          addFriend={this.addFriend}
-          updateFriend={this.updateFriend}
+        <ul className="navBar">
+          <li>
+            <NavLink exact to="/" className="activeNav">
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact to="/friends-list" className="activeNav">
+              Friends
+            </NavLink>
+          </li>
+          <li>
+            <NavLink exact to="/friend-form" className="activeNav">
+              Add Friend
+            </NavLink>
+          </li>
+        </ul>
+        <Route exact path="/" component={Home} />
+
+        <Route
+          exact
+          path="/friends-list"
+          render={props => (
+            <FriendsList
+              {...props}
+              friends={this.state.friends}
+              getFriendById={this.getFriendById}
+              deleteFriend={this.deleteFriend}
+            />
+          )}
         />
-        <FriendsList
-          friends={this.state.friends}
-          getFriendById={this.getFriendById}
-          deleteFriend={this.deleteFriend}
+
+        <Route
+          path="/friends-list/:id"
+          render={props => (
+            <Friend
+              deleteFriend={this.deleteFriend}
+              friends={this.state.friends}
+              setActiveFriend={this.setActiveFriend}
+              {...props}
+            />
+          )}
+        />
+        <Route
+          path="/new-item"
+          render={props => <FriendForm {...props} addFriend={this.addFriend} />}
+        />
+        <Route
+          path="/friend-form"
+          render={props => (
+            <FriendForm
+              {...props}
+              activeFriend={this.state.activeFriend}
+              addFriend={this.addFriend}
+              updateFriend={this.updateFriend}
+            />
+          )}
         />
       </div>
     );
